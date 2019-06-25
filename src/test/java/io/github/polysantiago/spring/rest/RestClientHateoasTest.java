@@ -1,6 +1,8 @@
 package io.github.polysantiago.spring.rest;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +21,7 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.hateoas.hal.Jackson2HalModule;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -73,6 +76,15 @@ public class RestClientHateoasTest {
                     return bean;
                 }
             };
+        }
+
+        @Bean
+        ObjectMapper objectMapper() {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new Jackson2HalModule());
+            mapper.registerModule(new Jdk8Module());
+            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            return mapper;
         }
 
     }

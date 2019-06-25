@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
-    id "io.spring.dependency-management" version "1.0.2.RELEASE"
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
     id 'maven-publish'
     id 'signing'
     id 'nebula.optional-base' version '3.0.3'
@@ -44,7 +44,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.spring.platform:platform-bom:Brussels-SR2'
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.5.RELEASE'
     }
 }
 
@@ -55,10 +55,12 @@ dependencies {
     compile("org.springframework:spring-webmvc")
     compile('org.springframework:spring-aop')
     compile('org.aspectj:aspectjweaver')
-
+    annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
+    
     compile 'org.springframework.retry:spring-retry', optional
 
     provided 'org.projectlombok:lombok'
+    annotationProcessor("org.projectlombok:lombok")
     compile 'org.apache.commons:commons-lang3:3.5'
     compile 'net.javacrumbs.future-converter:future-converter-spring-java8:1.1.0'
 
@@ -67,6 +69,7 @@ dependencies {
     testCompile("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
     testCompile("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     testCompile('org.assertj:assertj-core:3.6.2')
+    testAnnotationProcessor("org.projectlombok:lombok")
 }
 
 tasks.withType(Jar) {
