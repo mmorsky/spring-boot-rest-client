@@ -43,7 +43,7 @@ public class RestClientPropertiesTest {
     public void testBackOffSettings() throws Exception {
         TestPropertyValues.of("spring.rest.client.retry.back-off.delay:2000")
             .and("spring.rest.client.retry.back-off.max-delay:10000")
-            .and( "spring.rest.client.retry.back-off.multiplier:2.5")
+            .and("spring.rest.client.retry.back-off.multiplier:2.5")
             .and("spring.rest.client.retry.back-off.random:true")
             .applyTo(this.context);
 
